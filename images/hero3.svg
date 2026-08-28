@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="520" viewBox="0 0 1300 520">
+  <defs>
+	<linearGradient id="g3" x1="0" x2="1">
+	  <stop offset="0" stop-color="#eaf7ef"/>
+	  <stop offset="1" stop-color="#dff2e6"/>
+	</linearGradient>
+  </defs>
+  <rect width="1300" height="520" fill="url(#g3)" />
+  <!-- simple interior illustration -->
+  <rect x="100" y="140" width="360" height="260" rx="8" fill="#ffffff" opacity="0.95" />
+  <rect x="480" y="100" width="720" height="320" rx="8" fill="#f2fbf4" />
+  <rect x="520" y="140" width="640" height="240" rx="6" fill="#cfe9d8" />
+  <rect x="140" y="420" width="220" height="12" rx="6" fill="#cfe5d6" />
+  <g fill="#2e6340" font-family="Arial, Helvetica, sans-serif" font-size="36">
+	<text x="120" y="90">室內場景 3</text>
+  </g>
+</svg>
