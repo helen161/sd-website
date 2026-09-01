@@ -40,6 +40,74 @@
     <section class="product-banner-center">
         <img src="images/01.jpg" alt="愛思帝長效清潔劑 橫幅" width="1300" height="325">
     </section>
+    <script>
+      (function(){
+        const wrapper = document.querySelector('.carousel-track-wrapper');
+        const track = document.querySelector('.carousel-track');
+        const items = Array.from(document.querySelectorAll('.carousel-item'));
+        const btnPrev = document.querySelector('.carousel-btn.prev');
+        const btnNext = document.querySelector('.carousel-btn.next');
+        if(!wrapper || !track || items.length===0) return;
+        let currentPage = 0;
+        function getGap(){ return parseFloat(getComputedStyle(track).gap) || 18; }
+        function getItemsPerView(){
+          const itemW = items[0].getBoundingClientRect().width;
+          const gap = getGap();
+          return Math.max(1, Math.floor(wrapper.clientWidth / (itemW + gap)));
+        }
+        function updateButtons(pages){
+          btnPrev.disabled = currentPage <= 0;
+          btnNext.disabled = currentPage >= pages - 1;
+        }
+        function update(){
+          const perView = getItemsPerView();
+          const pages = Math.max(1, Math.ceil(items.length / perView));
+          if(currentPage > pages - 1) currentPage = pages - 1;
+          const gap = getGap();
+          const itemW = items[0].getBoundingClientRect().width;
+          const shift = currentPage * perView * (itemW + gap);
+          track.style.transform = `translateX(-${shift}px)`;
+          track.style.transition = 'transform .45s ease';
+          updateButtons(pages);
+        }
+        btnPrev.addEventListener('click', ()=>{ currentPage = Math.max(0, currentPage - 1); update(); });
+        btnNext.addEventListener('click', ()=>{ const perView = getItemsPerView(); const pages = Math.ceil(items.length / perView); currentPage = Math.min(pages - 1, currentPage + 1); update(); });
+        window.addEventListener('resize', ()=>{ setTimeout(()=>{ update(); }, 80); });
+
+        // touch / swipe support
+        let startX = 0, deltaX = 0, baseShift = 0, touching = false;
+        wrapper.addEventListener('touchstart', (e)=>{
+          touching = true;
+          startX = e.touches[0].clientX;
+          const perView = getItemsPerView();
+          const gap = getGap();
+          const itemW = items[0].getBoundingClientRect().width;
+          baseShift = currentPage * perView * (itemW + gap);
+          track.style.transition = 'none';
+        }, {passive:true});
+        wrapper.addEventListener('touchmove', (e)=>{
+          if(!touching) return;
+          deltaX = e.touches[0].clientX - startX;
+          const pos = -baseShift + deltaX;
+          track.style.transform = `translateX(${pos}px)`;
+        }, {passive:true});
+        wrapper.addEventListener('touchend', ()=>{
+          touching = false;
+          track.style.transition = 'transform .45s ease';
+          if(Math.abs(deltaX) > 50){
+            if(deltaX < 0){ // swipe left -> next
+              const perView = getItemsPerView(); const pages = Math.ceil(items.length / perView);
+              currentPage = Math.min(pages - 1, currentPage + 1);
+            } else { currentPage = Math.max(0, currentPage - 1); }
+          }
+          deltaX = 0;
+          update();
+        });
+
+        // init
+        window.addEventListener('load', ()=>{ update(); });
+      })();
+    </script>
 
     <!-- 產品介紹：左文字、右圖 -->
     <section class="product-intro" style="margin-top:8px;">
