@@ -23,6 +23,13 @@
     @media (max-width:900px){ .carousel-item img{height:120px;} }
     @media (max-width:700px){ .carousel-item{ flex:0 0 calc((100% - 36px) / 2); } }
     @media (max-width:420px){ .carousel-item{ flex:0 0 100%; } .carousel-btn.prev{ left:6px; } .carousel-btn.next{ right:6px; } }
+    @media (max-width:420px){
+      .carousel-track-wrapper { overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; }
+      .carousel-track { transition:none; }
+      .carousel-item { scroll-snap-align:center; }
+      /* hide native scrollbar but keep scrolling */
+      .carousel-track-wrapper::-webkit-scrollbar{ display:none; }
+    }
     /* 產品介紹區塊 (左文右圖) */
     /* section 只負責上下間距，實際淺灰背景放在 .intro-inner 以對齊 banner 寬度 */
     .product-intro { padding:24px 0; margin-bottom:20px; }
@@ -226,8 +233,13 @@
             function update() {
                 const perView = getItemsPerView();
                 const pages = Math.ceil(items.length / perView);
-                const shift = currentPage * wrapper.clientWidth;
-                track.style.transform = `translateX(-${shift}px)`;
+                if (perView === 1) {
+                    // use native scrolling on small screens to avoid misalignment
+                    wrapper.scrollTo({ left: currentPage * wrapper.clientWidth, behavior: 'smooth' });
+                } else {
+                    const shift = currentPage * wrapper.clientWidth;
+                    track.style.transform = `translateX(-${shift}px)`;
+                }
                 updateButtons(pages);
             }
             btnPrev.addEventListener('click', () => { currentPage = Math.max(0, currentPage - 1); update(); });
