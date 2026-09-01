@@ -31,9 +31,9 @@
         <li class="has-dropdown">
           <a href="product.html">愛思帝長效清潔劑</a>
           <ul class="dropdown">
-            <li><a href="product.html">產品</a></li>
-            <li><a href="#">影片</a></li>
-            <li><a href="#">產品Q&amp;A</a></li>
+            <li><a href="product.html">產品介紹</a></li>
+            <li><a href="https://www.youtube.com/@user-jhft109" target="_blank">相關影片</a></li>
+            <li><a href="faq.html">產品FAQ</a></li>
           </ul>
         </li>
         <li class="has-dropdown">

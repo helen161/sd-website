@@ -1,7 +1,13 @@
 /* 基本重置 */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans"; color:#222; line-height:1.6; }
-.container { max-width:1250px; margin:0 auto; padding:0 16px; }
+.container { max-width:1300px; margin:0 auto; padding:0 16px; }
+.container-bg-gray {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 16px;
+    background-color:#f2f2f2;
+}
 .container_main {max-width:100%; margin:0 5%;
 }
 
@@ -102,11 +108,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 /* product page centered banner (1300x325) */
 /* product banner: 固定 1300px 寬度置中，超過容器時仍顯示完整圖像 */
 .product-banner-center {
-  width: 1300px;
-  max-width: 100vw; /* 在窄視窗下不超出視窗 */
-  margin-left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
+    width: 1300px;
+    max-width: 100vw; /* 在窄視窗下不超出視窗 */
+    margin-left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
 }
 .product-banner-center img {
   width: 1300px;
@@ -151,16 +159,29 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
   .hero-cta { right:12px; bottom:12px; }
 }
 
+/* Features grid (homepage key points) */
+.features { padding:100px 0; }
+.features .container { display:block; }
+.feature-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; align-items:start; }
+.feature-item { text-align:center; }
+.feature-img { width:250px; height:250px; margin:0 auto 12px; display:block; border-radius:50%; -webkit-clip-path: circle(50% at 50% 50%); clip-path: circle(50% at 50% 50%); object-fit: cover; }
+.feature-title { font-weight:700; color:#1f497d; font-size:18px;}
+.feature-desc { color:#444; font-size:14px; margin-top:6px; }
+
+@media (max-width:900px) {
+  .feature-grid { grid-template-columns:repeat(2,1fr); gap:18px; }
+}
+@media (max-width:480px) {
+  .feature-grid { grid-template-columns:1fr; }
+  .feature-img { width:96px; height:96px; }
+}
+
 /* Cards */
 .intro { padding:36px 0; }
 .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .card { border:1px solid #e6e6e6; padding:16px; border-radius:6px; background:#fff; }
 .btn { display:inline-block; padding:8px 12px; background:#eee; color:#222; text-decoration:none; border-radius:4px; }
 .btn.primary { background:#1f497d; color:#fff; }
-
-.news { padding:24px 0 60px; }
-.news-list { list-style:none; }
-.news-list li { margin-bottom:12px; }
 
 /* Footer */
 .site-footer { background:#f7f7f7; padding:24px 0; margin-top:24px; }
@@ -215,4 +236,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
   /* when open, make parent background visible to match desktop hover color */
   .has-dropdown.open > a,
   .has-dropdown.open > a:hover { background:#ff8a3d; color:#fff; font-weight:700; border-radius:4px; }
+}
+.faq_Q {
+    background-color: #f9d2b8;
+    padding: 10px;
+    margin: 20px 0;
 }

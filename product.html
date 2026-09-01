@@ -5,85 +5,168 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>愛思帝長效清潔劑 - 完整介紹</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Carousel for scenes */
+    .scene-carousel { background:#e6f7ff; padding:36px 0;}
+    .scene-carousel .carousel-inner { position:relative; max-width:1200px; margin:0 auto; }
+    .carousel-track-wrapper { overflow:hidden; }
+    .carousel-track { display:flex; gap:18px; transition:transform .45s ease; list-style:none; margin:0; padding:0; }
+    .carousel-item { flex:0 0 calc((100% - 54px) / 4); box-sizing:border-box; background:#fff; padding:10px; text-align:center; }
+    .carousel-item img { width:100%; height:150px; object-fit:cover; display:block; border-radius:4px; }
+    .carousel-item .caption { margin-top:8px; color:#333; font-size:14px; }
+    .carousel-btn { position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px; border-radius:50%; border:1px solid rgba(0,0,0,0.1); background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+    .carousel-btn.prev { left:-18px; }
+    .carousel-btn.next { right:-18px; }
+    .carousel-btn:disabled { opacity:0.4; cursor:default; }
+    /* responsive adjustments */
+    @media (max-width:900px){ .carousel-item img{height:120px;} }
+    @media (max-width:700px){ .carousel-item{ flex:0 0 calc((100% - 36px) / 2); } }
+    @media (max-width:420px){ .carousel-item{ flex:0 0 100%; } .carousel-btn.prev{ left:6px; } .carousel-btn.next{ right:6px; } }
+    /* 產品介紹區塊 (左文右圖) */
+    /* section 只負責上下間距，實際淺灰背景放在 .intro-inner 以對齊 banner 寬度 */
+    .product-intro { padding:24px 0; margin-bottom:20px; }
+    .product-intro .intro-inner { display:flex; gap:36px; align-items:center; max-width:1300px; margin:0 auto; background:#f2f2f2; padding:48px; box-sizing:border-box; }
+    .product-intro .intro-text { width:50%; color:#222; display:flex; flex-direction:column; justify-content:center; }
+    .product-intro .intro-text h1 { margin-top:0; }
+    .product-intro .intro-image { width:50%; }
+    .product-intro .intro-image img{ width:100%; height:auto; display:block; border-radius:0; }
+    @media (max-width:900px){ .product-intro { padding:16px 0; } .product-intro .intro-inner{ flex-direction:column; padding:28px; } .product-intro .intro-image{ width:100%; } .product-intro .intro-text{ width:100%; } }
+  </style>
 </head>
 <body>
-  <div id="site-header-placeholder"></div>
-  <!-- 保留 1300x325 置中橫幅（其他橫幅已移除） -->
+    <div id="site-header-placeholder"></div>
+    <!-- 保留 1300x325 置中橫幅（其他橫幅已移除） -->
 
-  <main class="container" style="padding:24px 16px;">
-    <!-- 置中 1300x325 橫幅 -->
-    <section class="product-banner-center" style="margin-bottom:20px;">
-      <img src="images/01.jpg" alt="愛思帝長效清潔劑 橫幅" width="1300" height="325">
+    <section class="product-banner-center">
+        <img src="images/01.jpg" alt="愛思帝長效清潔劑 橫幅" width="1300" height="325">
     </section>
 
-    <nav aria-label="breadcrumb" style="margin:12px 0; font-size:14px; color:#666;">
-      <a href="index.html">首頁</a> › <a href="product.html">產品</a> › 愛思帝長效清潔劑 - 完整介紹
-    </nav>
-
-    <section style="margin-top:8px;">
-      <h1>愛思帝長效清潔劑- 完整介紹</h1>
-      <p>愛思帝長效清潔劑 sd cleaner 生物科技產品<br>
-      噴灑一次 90天保護 90天保護 = 90天內持續不間斷使用酒精、消毒水或漂白水的效果</p>
-
-      <p>是市售眾多產品中，唯一經過許多國家在現場使用追蹤測試，證實90天有效的長效保護產品！</p>
-
-      <p>流行性感冒、諾羅病毒、腸病毒及COVID-19疫情流行期間<br>
-      不摸到病原體，不攜帶病原體回家，預防不生病的費用超划算</p>
-
-      <h2>產品說明</h2>
-      <p>本產品為長效保護型表面處理劑，依實際使用環境與方式不同，效果與持久度可能有所差異。產品會在表面形成保護層，降低病原微生物的存活與傳播風險，適用於公共空間、醫療機構、交通工具、學校與商業場所等。</p>
-
-      <h2>適用範圍</h2>
-      <ul style="margin-left:20px;">
-        <li>門把、電梯按鈕、扶手等高接觸表面</li>
-        <li>學校教室、幼兒園環境</li>
-        <li>醫療院所、公衛空間</li>
-        <li>公共運輸車廂、客運、計程車等交通工具</li>
-        <li>辦公室、商場與其他人潮密集場所</li>
-      </ul>
-
-      <h2>使用方法與注意事項</h2>
-      <ol style="margin-left:20px; color:#333;">
-        <li>先以一般清潔程序清除表面髒污與油脂，確保表面乾淨。</li>
-        <li>依照施工規範均勻噴灑於目標表面，避免過度堆積或滴落。</li>
-        <li>噴灑後請待表面自然風乾，避免立即擦拭以維持長效保護層。</li>
-        <li>對於敏感材質建議先行小範圍測試，確認無不良反應再大範圍施作。</li>
-        <li>如誤觸眼睛或大量接觸皮膚，依產品安全說明處理或就醫。</li>
-      </ol>
-
-      <h2>產品優勢</h2>
-      <ul style="margin-left:20px;">
-        <li>一次噴灑，提供長時間保護效果（依環境條件不同）。</li>
-        <li>美國配方，原裝進口，實驗與現場使用皆有紀錄。</li>
-        <li>適用於多種表面，能夠降低病原體在表面的殘存率。</li>
-      </ul>
-
-      <p>如需更多產品技術資料、實驗報告與使用案例，請參考新聞中心或聯絡我們取得詳細文件。</p>
-
-      <p><a class="btn primary" href="contact.html">詢問/聯絡我們</a> <a class="btn" href="https://sdcleaner.cashier.ecpay.com.tw/" target="_blank" rel="noopener">線上購買</a></p>
+    <!-- 產品介紹：左文字、右圖 -->
+    <section class="product-intro" style="margin-top:8px;">
+        <div class="intro-inner">
+            <div class="intro-text">
+                <h1>愛思帝長效清潔劑</h1>
+                <p>噴灑一次 90天保護 = 90天內持續不間斷使用酒精、消毒水或漂白水的效果</p>
+                <p>流行性感冒、諾羅病毒、腸病毒及新冠疫情流行期間不摸到病原體，不攜帶病原體回家，長效保護，預防不生病的費用超划算</p>
+               <p>產品規格 / 30ml 瓶裝</p>
+               <p>產地及保存期限 / 美國製造，保存期間2年</p>
+            </div>
+            <div class="intro-image">
+                <img src="images/products-img.png" alt="產品圖片">
+            </div>
+        </div>
     </section>
 
-  </main>
+    <main class="container" style="padding:24px 16px;">
+        <!-- 置中 1300x325 橫幅 -->
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-col">
-        <h4>聯絡資訊</h4>
-        <p>金和福泰有限公司</p>
-        <p>103 台北市大同區長安西路289號2樓</p>
-        <p>客服電話：886-2-66346768</p>
-        <p>客服信箱：ec-jhft109@outlook.com</p>
-      </div>
-      <div class="footer-fb">
-        <a href="https://www.facebook.com/sdlabssdcleaner/" target="_blank" rel="noopener" aria-label="SD LABS Facebook">
-          <img src="images/fb-icon.svg" alt="Facebook" width="44" height="44">
-        </a>
-      </div>
-    </div>
-    <div class="copyright">© 2024 金和福泰有限公司 版權所有</div>
-  </footer>
+        <h2>產品特色</h2>
+        <ul style="list-style-type:decimal; margin-left:40px">
+            <li>90天內24小時不間斷的使用酒精、消毒水或漂白水的效果</li>
+            <li>經噴灑後的表面，形成保護膜，仍然可以進行日常髒污擦拭</li>
+            <li>國外試驗室及現場使用實證有效</li>
+            <li>對細菌、病毒、黴菌都能有效抑制</li>
+            <li>溫和不刺激，家有小孩、寵物可以安心使用</li>
+            <li>經濟耐用，每次噴灑抹勻可以覆蓋一張A4紙張範圍，1瓶大約噴灑900次</li>
+            <li>3房小家庭每90天噴灑一次，一瓶保護一整年</li>
+            <li>皮衣皮靴防黴菌，節省昂貴的皮革清潔保養費用</li>
+        </ul>
+        <p>&nbsp;</p><p>&nbsp;</p>
 
-  <script src="js/title.js"></script>
-  <script src="js/main.js"></script>
+
+        <h2>智慧買家的聰明選擇：超級划算</h2>
+        <ul style="margin-left:40px;">
+            <li>保護自己保護家人，每天保護成本不到10元。</li>
+            <li>本產品噴灑一次 0.2ml，90天保護效果等同於 3.5瓶的 500ml酒精或漂白水的使用量。</li>
+            <li>1瓶愛思帝長效清潔劑等同於 3,150瓶 500ml酒精或漂白水使用量，每 90天執行一次，每次可以清潔 225個噴灑區域。</li>
+            <li>節省材料與 90天內 24小時不間斷的清潔人力。</li>
+        </ul>
+        <p>&nbsp;</p>
+        <!--<p><a class="btn primary" href="contact.html">詢問/聯絡我們</a> <a class="btn" href="https://sdcleaner.cashier.ecpay.com.tw/" target="_blank" rel="noopener">線上購買</a></p> -->
+        </section>
+
+    </main>
+
+    <!-- 場景圖片輪播區塊 -->
+    <section class="scene-carousel">
+        <section class="container">
+            <h2>適用範圍</h2>
+            <p>
+                建議噴灑在許多人共同接觸的物體表面，或外出衣物背包表面
+                門鈴、門把及門閂、門把附近的推門處、電梯按鍵、樓梯扶手、桌面、椅子及椅背、冰箱或微波爐門把、飲水機按鍵、水龍頭、沖水馬桶座及把手、公用設備的按鍵按鈕、公事包或背包
+            </p>
+            <p>&nbsp;</p>
+        </section>
+        <div class="carousel-inner">
+
+            <button class="carousel-btn prev" aria-label="上一頁">‹</button>
+            <div class="carousel-track-wrapper">
+                <ul class="carousel-track">
+                    <!-- 12 張場景圖 -->
+                    <li class="carousel-item"><img src="images/scene01.jpg" alt="scene01"><p class="caption">公共廁所</p></li>
+                    <li class="carousel-item"><img src="images/scene02.jpg" alt="scene02"><p class="caption">幼兒教室</p></li>
+                    <li class="carousel-item"><img src="images/scene03.jpg" alt="scene03"><p class="caption">用餐區</p></li>
+                    <li class="carousel-item"><img src="images/scene04.jpg" alt="scene04"><p class="caption">休息區</p></li>
+                    <li class="carousel-item"><img src="images/scene05.jpg" alt="scene05"><p class="caption">門把</p></li>
+                    <li class="carousel-item"><img src="images/scene06.jpg" alt="scene06"><p class="caption">茶水間</p></li>
+                    <li class="carousel-item"><img src="images/scene07.jpg" alt="scene07"><p class="caption">健身房</p></li>
+                    <li class="carousel-item"><img src="images/scene08.jpg" alt="scene08"><p class="caption">捷運</p></li>
+                    <li class="carousel-item"><img src="images/scene09.jpg" alt="scene09"><p class="caption">等候區</p></li>
+                    <li class="carousel-item"><img src="images/scene10.jpg" alt="scene10"><p class="caption">會議室</p></li>
+                    <li class="carousel-item"><img src="images/scene11.jpg" alt="scene11"><p class="caption">電梯按鍵</p></li>
+                    <li class="carousel-item"><img src="images/scene12.jpg" alt="scene12"><p class="caption">購票機</p></li>
+                </ul>
+            </div>
+            <button class="carousel-btn next" aria-label="下一頁">›</button>
+        </div>
+    </section>
+    <p>&nbsp;</p>
+
+    <section class="container">
+        <h2>提醒注意</h2>
+        <ol style="margin-left:40px; color:#333;">
+            <li>使用前請閱讀清潔劑瓶身標籤提供的使用說明與注意事項。</li>
+            <li>請勿將產品放在陽光直射，或攝氏10度以下環境，避免產品變質。</li>
+            <li>如因誤食、或接觸皮膚眼睛造成不適，請先用大量清水沖洗，並尋求醫師建議。</li>
+            <li>因衛生考量而密封的個人衛生用品，如經拆封檢查試用後再次出售，有影響衛生疑慮。故除清潔劑本身有瑕疵外，縱使拆封後可以恢復原狀，均不提供退、換貨服務。請務必確認有購買清潔劑需求再行拆除密封包裝，以免影響權益。</li>
+        </ol>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+    </section>
+    <div id="site-footer-placeholder"></div>
+
+    <script src="js/title.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        (function () {
+            const wrapper = document.querySelector('.carousel-track-wrapper');
+            const track = document.querySelector('.carousel-track');
+            const items = Array.from(document.querySelectorAll('.carousel-item'));
+            const btnPrev = document.querySelector('.carousel-btn.prev');
+            const btnNext = document.querySelector('.carousel-btn.next');
+            let currentPage = 0;
+            function getItemsPerView() {
+                if (!items.length || !wrapper) return 1;
+                const itemW = items[0].getBoundingClientRect().width;
+                return Math.max(1, Math.floor(wrapper.clientWidth / itemW));
+            }
+            function updateButtons(pages) {
+                btnPrev.disabled = currentPage <= 0;
+                btnNext.disabled = currentPage >= pages - 1;
+            }
+            function update() {
+                const perView = getItemsPerView();
+                const pages = Math.ceil(items.length / perView);
+                const shift = currentPage * wrapper.clientWidth;
+                track.style.transform = `translateX(-${shift}px)`;
+                updateButtons(pages);
+            }
+            btnPrev.addEventListener('click', () => { currentPage = Math.max(0, currentPage - 1); update(); });
+            btnNext.addEventListener('click', () => { const perView = getItemsPerView(); const pages = Math.ceil(items.length / perView); currentPage = Math.min(pages - 1, currentPage + 1); update(); });
+            window.addEventListener('resize', () => { if (currentPage < 0) currentPage = 0; update(); });
+            // init after images loaded to ensure sizes
+            window.addEventListener('load', () => { currentPage = 0; update(); });
+        })();
+    </script>
 </body>
 </html>

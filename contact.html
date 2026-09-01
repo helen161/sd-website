@@ -7,40 +7,37 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="site-header-placeholder"></div>
+    <div id="site-header-placeholder"></div>
 
-  <main class="container">
-    <h1>聯絡我們</h1>
-    <p>若有任何產品、採購或技術問題，請填寫下方表單，我們會盡快回覆。</p>
+    <main class="container">
+        <!-- 置中 1300x325 橫幅（同 product.html 格式） -->
+        <section class="product-banner-center" style="margin-bottom:20px;">
+            <img src="images/contactus.jpg" alt="愛思帝長效清潔劑 橫幅" width="1300" height="325">
+        </section>
 
-    <form id="contact-form" class="contact-form" action="#" method="post">
-      <label>聯絡人姓名 <input type="text" name="name" required></label>
-      <label>公司名稱 <input type="text" name="company"></label>
-      <label>電話 <input type="tel" name="phone"></label>
-      <label>E-mail <input type="email" name="email" required></label>
-      <label>內容說明 <textarea name="message" rows="6" required></textarea></label>
-      <div class="form-actions">
-        <button type="submit" class="btn primary">送出</button>
-        <button type="reset" class="btn">重設</button>
-      </div>
-      <div id="form-status" class="form-status" aria-live="polite"></div>
-    </form>
+        <h1>聯絡我們</h1>
+        <p>若有任何產品、採購或技術問題，請填寫下方表單，我們會盡快回覆。</p>
 
-    <section class="info">
-      <h2>其他聯絡方式</h2>
-      <p>公司地址：103 台北市大同區長安西路289號2樓</p>
-      <p>客服電話：02-6634-6768</p>
-      <p>客服信箱：ec-jhft109@outlook.com</p>
-    </section>
-  </main>
+        <form id="contact-form" class="contact-form" action="#" method="post">
+            <label>聯絡人姓名 <input type="text" name="name" required></label>
+            <label>公司名稱 <input type="text" name="company"></label>
+            <label>電話 <input type="tel" name="phone"></label>
+            <label>E-mail <input type="email" name="email" required></label>
+            <label>內容說明 <textarea name="message" rows="6" required></textarea></label>
+            <div class="form-actions">
+                <button type="submit" class="btn primary">送出</button>
+                <button type="reset" class="btn">重設</button>
+            </div>
+            <div id="form-status" class="form-status" aria-live="polite"></div>
+        </form>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2024 金和福泰有限公司 版權所有</p>
-    </div>
-  </footer>
 
-  <script src="js/title.js"></script>
-  <script src="js/main.js"></script>
+    </main>
+
+    <div id="site-footer-placeholder"></div>
+
+    <script src="js/title.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
