@@ -39,12 +39,12 @@
         <li class="has-dropdown">
           <a href="hot.html">新聞中心</a>
           <ul class="dropdown">
-            <li><a href="#">常用消毒殺菌產品介紹</a></li>
+            <li><a href="news-press.html">常用消毒殺菌產品介紹</a></li>
             <li><a href="#">SD產品各國實驗報告及推薦函</a></li>
             <li><a href="#">SD產品各國使用案例</a></li>
           </ul>
         </li>
-        <li><a href="#">購買方式</a></li>
+        <li><a href="index.html#buy">購買方式</a></li>
         <li><a href="contact.html">聯絡我們</a></li>
       </ul>
     </nav>

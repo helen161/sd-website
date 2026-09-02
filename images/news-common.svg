@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Simple 1:1 placeholder image for news topics -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="消毒新聞圖示">
+  <defs>
+	<linearGradient id="g" x1="0" x2="1">
+	  <stop offset="0" stop-color="#e6f7ff"/>
+	  <stop offset="1" stop-color="#cfeef9"/>
+	</linearGradient>
+  </defs>
+  <rect width="800" height="800" rx="20" fill="url(#g)" />
+  <g transform="translate(160,160)" fill="#1f497d">
+	<rect x="0" y="0" width="480" height="480" rx="24" fill="#ffffff" opacity="0.06" />
+	<!-- simple shield / drop icon -->
+	<path d="M240 40c-52 64-128 88-128 176 0 88 80 160 128 160s128-72 128-160c0-88-76-112-128-176z" fill="#1f497d" opacity="0.12"/>
+	<path d="M240 72c-40 50-100 68-100 136 0 68 64 124 100 124s100-56 100-124c0-68-60-86-100-136z" fill="#1f497d"/>
+	<circle cx="240" cy="200" r="26" fill="#e6f7ff" />
+  </g>
+  <text x="50%" y="720" font-family="Noto Sans, Arial, sans-serif" font-size="36" fill="#1f497d" text-anchor="middle">消毒與防疫要點</text>
+</svg>
