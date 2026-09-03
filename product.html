@@ -7,15 +7,33 @@
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* Carousel for scenes */
-    .scene-carousel { background:#e6f7ff; padding:36px 0;}
+      .scene-carousel {
+          background: #E7F2DF; padding: 36px 0;
+      }
     .scene-carousel .carousel-inner { position:relative; max-width:1200px; margin:0 auto; overflow:visible; }
     .carousel-track-wrapper { overflow:hidden; }
     .carousel-track { display:flex; gap:18px; transition:transform .45s ease; list-style:none; margin:0; padding:0; z-index:1; }
-    .carousel-item { flex:0 0 calc((100% - 54px) / 4); box-sizing:border-box; background:#fff; padding:10px; text-align:center; }
+    .carousel-item { flex:0 0 calc((100% - 54px) / 3); box-sizing:border-box; background:; padding:10px; text-align:center; }
     /* 改為自適應高度以避免在多款手機上被裁切，並調整顯示方式 */
-    .carousel-item img { width:100%; height:auto; max-height:220px; object-fit:contain; display:block; border-radius:4px; }
+    .carousel-item img { width:100%; height:auto; max-height:250px; object-fit:contain; display:block; }
     .carousel-item .caption { margin-top:8px; color:#333; font-size:14px; }
-    .carousel-btn { position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px; border-radius:50%; border:1px solid rgba(0,0,0,0.1); background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,0.08); z-index:5; }
+      .carousel-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          border: 1px solid rgba(0,0,0,0.1);
+          background: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+          z-index: 5;
+          font-size: 20px;
+      }
     .carousel-btn.prev { left:-18px; }
     .carousel-btn.next { right:-18px; }
     .carousel-btn:disabled { opacity:0.4; cursor:default; }
@@ -206,7 +224,7 @@
             <li>如因誤食、或接觸皮膚眼睛造成不適，請先用大量清水沖洗，並尋求醫師建議。</li>
             <li>因衛生考量而密封的個人衛生用品，如經拆封檢查試用後再次出售，有影響衛生疑慮。故除清潔劑本身有瑕疵外，縱使拆封後可以恢復原狀，均不提供退、換貨服務。請務必確認有購買清潔劑需求再行拆除密封包裝，以免影響權益。</li>
         </ol>
- 
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
     </section>
     <div id="site-footer-placeholder"></div>
 
