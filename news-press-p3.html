@@ -16,6 +16,16 @@
       }
       figcaption { font-size:14px; color:#808080
       }
+      /* 響應式圖片，窄螢幕取消浮動 */
+      img, figure img {
+        max-width:100%;
+        height:auto;
+        display:block;
+      }
+      figure { width:100%; }
+      @media (max-width:700px) {
+        img { float:none !important; margin:0 auto !important; }
+      }
   </style>
 </head>
 <body>
