@@ -26,6 +26,24 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 .main-nav ul { list-style:none; display:flex; gap:8px; align-items:center; }
 .main-nav a { text-decoration:none; color:#222; padding:8px 12px; display:inline-block; }
 .main-nav .has-dropdown { position:relative; }
+
+/* 在所有裝置（包含行動裝置）上顯示下拉指示黑色倒三角 */
+.has-dropdown > a { position: relative; padding-right: 28px; }
+.has-dropdown > a::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #000; /* 黑色向下三角 */
+  display: inline-block;
+  transition: border-top-color .15s ease, transform .15s ease;
+}
+
 .dropdown { position:absolute; left:0; top:100%; background:#fff; border:1px solid #ddd; min-width:200px; display:none; z-index:40; }
 .dropdown li { border-bottom:1px solid #eee; }
 .dropdown li a { padding:10px; display:block; }
