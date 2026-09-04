@@ -48,15 +48,7 @@
       /* hide native scrollbar but keep scrolling */
       .carousel-track-wrapper::-webkit-scrollbar{ display:none; }
     }
-    /* 產品介紹區塊 (左文右圖) */
-    /* section 只負責上下間距，實際淺灰背景放在 .intro-inner 以對齊 banner 寬度 */
-    .product-intro { padding:24px 0; margin-bottom:20px; }
-    .product-intro .intro-inner { display:flex; gap:36px; align-items:center; max-width:1300px; margin:0 auto; background:#f2f2f2; padding:48px; box-sizing:border-box; }
-    .product-intro .intro-text { width:50%; color:#222; display:flex; flex-direction:column; justify-content:center; }
-    .product-intro .intro-text h1 { margin-top:0; }
-    .product-intro .intro-image { width:50%; }
-    .product-intro .intro-image img{ width:100%; height:auto; display:block; border-radius:0; }
-    @media (max-width:900px){ .product-intro { padding:16px 0; } .product-intro .intro-inner{ flex-direction:column; padding:28px; } .product-intro .intro-image{ width:100%; } .product-intro .intro-text{ width:100%; } }
+
   </style>
 </head>
 <body>
@@ -66,84 +58,17 @@
     <section class="product-banner-center">
         <img src="images/01.jpg" alt="愛思帝長效清潔劑 橫幅" width="1300" height="325">
     </section>
-    <script>
-      (function(){
-        const wrapper = document.querySelector('.carousel-track-wrapper');
-        const track = document.querySelector('.carousel-track');
-        const items = Array.from(document.querySelectorAll('.carousel-item'));
-        const btnPrev = document.querySelector('.carousel-btn.prev');
-        const btnNext = document.querySelector('.carousel-btn.next');
-        if(!wrapper || !track || items.length===0) return;
-        let currentPage = 0;
-        function getGap(){ return parseFloat(getComputedStyle(track).gap) || 18; }
-        function getItemsPerView(){
-          const itemW = items[0].getBoundingClientRect().width;
-          const gap = getGap();
-          return Math.max(1, Math.floor(wrapper.clientWidth / (itemW + gap)));
-        }
-        function updateButtons(pages){
-          btnPrev.disabled = currentPage <= 0;
-          btnNext.disabled = currentPage >= pages - 1;
-        }
-        function update(){
-          const perView = getItemsPerView();
-          const pages = Math.max(1, Math.ceil(items.length / perView));
-          if(currentPage > pages - 1) currentPage = pages - 1;
-          const gap = getGap();
-          const itemW = items[0].getBoundingClientRect().width;
-          const shift = currentPage * perView * (itemW + gap);
-          track.style.transform = `translateX(-${shift}px)`;
-          track.style.transition = 'transform .45s ease';
-          updateButtons(pages);
-        }
-        btnPrev.addEventListener('click', ()=>{ currentPage = Math.max(0, currentPage - 1); update(); });
-        btnNext.addEventListener('click', ()=>{ const perView = getItemsPerView(); const pages = Math.ceil(items.length / perView); currentPage = Math.min(pages - 1, currentPage + 1); update(); });
-        window.addEventListener('resize', ()=>{ setTimeout(()=>{ update(); }, 80); });
 
-        // touch / swipe support
-        let startX = 0, deltaX = 0, baseShift = 0, touching = false;
-        wrapper.addEventListener('touchstart', (e)=>{
-          touching = true;
-          startX = e.touches[0].clientX;
-          const perView = getItemsPerView();
-          const gap = getGap();
-          const itemW = items[0].getBoundingClientRect().width;
-          baseShift = currentPage * perView * (itemW + gap);
-          track.style.transition = 'none';
-        }, {passive:true});
-        wrapper.addEventListener('touchmove', (e)=>{
-          if(!touching) return;
-          deltaX = e.touches[0].clientX - startX;
-          const pos = -baseShift + deltaX;
-          track.style.transform = `translateX(${pos}px)`;
-        }, {passive:true});
-        wrapper.addEventListener('touchend', ()=>{
-          touching = false;
-          track.style.transition = 'transform .45s ease';
-          if(Math.abs(deltaX) > 50){
-            if(deltaX < 0){ // swipe left -> next
-              const perView = getItemsPerView(); const pages = Math.ceil(items.length / perView);
-              currentPage = Math.min(pages - 1, currentPage + 1);
-            } else { currentPage = Math.max(0, currentPage - 1); }
-          }
-          deltaX = 0;
-          update();
-        });
-
-        // init
-        window.addEventListener('load', ()=>{ update(); });
-      })();
-    </script>
 
     <!-- 產品介紹：左文字、右圖 -->
     <section class="product-intro" style="margin-top:8px;">
-        <div class="intro-inner">
+        <div class="intro-inner" style="background: #f2f2f2; ">
             <div class="intro-text">
                 <h1>愛思帝長效清潔劑</h1>
                 <p>噴灑一次 90天保護 = 90天內持續不間斷使用酒精、消毒水或漂白水的效果</p>
                 <p>流行性感冒、諾羅病毒、腸病毒及新冠疫情流行期間不摸到病原體，不攜帶病原體回家，長效保護，預防不生病的費用超划算</p>
-               <p>產品規格 / 30ml 瓶裝</p>
-               <p>產地及保存期限 / 美國製造，保存期間2年</p>
+                <p>產品規格 / 30ml 瓶裝</p>
+                <p>產地及保存期限 / 美國製造，保存期間2年</p>
             </div>
             <div class="intro-image">
                 <img src="images/products-img.png" alt="產品圖片">
@@ -151,38 +76,47 @@
         </div>
     </section>
 
-    <main class="container" style="padding:24px 16px;">
-        <!-- 置中 1300x325 橫幅 -->
 
-        <h2>產品特色</h2>
-        <ul style="list-style-type:decimal; margin-left:40px">
-            <li>90天內24小時不間斷的使用酒精、消毒水或漂白水的效果</li>
-            <li>經噴灑後的表面，形成保護膜，仍然可以進行日常髒污擦拭</li>
-            <li>國外試驗室及現場使用實證有效</li>
-            <li>對細菌、病毒、黴菌都能有效抑制</li>
-            <li>溫和不刺激，家有小孩、寵物可以安心使用</li>
-            <li>經濟耐用，每次噴灑抹勻可以覆蓋一張A4紙張範圍，1瓶大約噴灑900次</li>
-            <li>3房小家庭每90天噴灑一次，一瓶保護一整年</li>
-            <li>皮衣皮靴防黴菌，節省昂貴的皮革清潔保養費用</li>
-        </ul>
-        <p>&nbsp;</p><p>&nbsp;</p>
+    <!-- 產品介紹：右文字、左圖 -->
+    <section class="product-intro" style="margin-top:8px;">
+        <div class="intro-inner">
+            <div class="intro-image">
+                <img src="images/products-img02.jpg" alt="產品圖片">
+            </div>
+            <div class="intro-text">
+                <h2>產品特色</h2>
+                <ul style="list-style-type:decimal; margin-left:40px">
+                    <li>90天內24小時不間斷的使用酒精、消毒水或漂白水的效果</li>
+                    <li>經噴灑後的表面，形成保護膜，仍然可以進行日常髒污擦拭</li>
+                    <li>國外試驗室及現場使用實證有效，對細菌、病毒、黴菌都能有效抑制</li>
+                    <li>溫和不刺激，家有小孩、寵物可以安心使用</li>
+                    <li>經濟耐用，每次噴灑抹勻可以覆蓋一張A4紙張範圍，1瓶大約噴灑900次</li>
+                    <li>3房小家庭每90天噴灑一次，一瓶保護一整年</li>
+                    <li>皮衣皮靴防黴菌，節省昂貴的皮革清潔保養費用</li>
+                </ul>
+
+                <p>&nbsp;</p>
 
 
-        <h2>智慧買家的聰明選擇：超級划算</h2>
-        <ul style="margin-left:40px;">
-            <li>保護自己保護家人，每天保護成本不到10元。</li>
-            <li>本產品噴灑一次 0.2ml，90天保護效果等同於 3.5瓶的 500ml酒精或漂白水的使用量。</li>
-            <li>1瓶愛思帝長效清潔劑等同於 3,150瓶 500ml酒精或漂白水使用量，每 90天執行一次，每次可以清潔 225個噴灑區域。</li>
-            <li>節省材料與 90天內 24小時不間斷的清潔人力。</li>
-        </ul>
-        <p>&nbsp;</p>
-        <!--<p><a class="btn primary" href="contact.html">詢問/聯絡我們</a> <a class="btn" href="https://sdcleaner.cashier.ecpay.com.tw/" target="_blank" rel="noopener">線上購買</a></p> -->
-        </section>
+                <h2>智慧買家的聰明選擇：超級划算</h2>
+                <ul style="margin-left:40px;">
+                    <li>保護自己保護家人，每天保護成本不到10元。</li>
+                    <li>本產品噴灑一次 0.2ml，90天保護效果等同於 3.5瓶的 500ml酒精或漂白水的使用量。</li>
+                    <li>1瓶愛思帝長效清潔劑等同於 3,150瓶 500ml酒精或漂白水使用量，每 90天執行一次，每次可以清潔 225個噴灑區域，節省材料與 90天內 24小時不間斷的清潔人力。</li>
+                    
+                </ul>
+   
+            </div>
 
-    </main>
+        </div>
+    </section>
+
+
+
+   
 
     <!-- 場景圖片輪播區塊 -->
-    <section class="scene-carousel">
+    <section class="scene-carousel" style="clear: both;">
         <section class="container">
             <h2>適用範圍</h2>
             <p>
@@ -265,6 +199,76 @@
             window.addEventListener('resize', () => { if (currentPage < 0) currentPage = 0; update(); });
             // init after images loaded to ensure sizes
             window.addEventListener('load', () => { currentPage = 0; update(); });
+        })();
+    </script>
+
+
+    <script>
+        (function () {
+            const wrapper = document.querySelector('.carousel-track-wrapper');
+            const track = document.querySelector('.carousel-track');
+            const items = Array.from(document.querySelectorAll('.carousel-item'));
+            const btnPrev = document.querySelector('.carousel-btn.prev');
+            const btnNext = document.querySelector('.carousel-btn.next');
+            if (!wrapper || !track || items.length === 0) return;
+            let currentPage = 0;
+            function getGap() { return parseFloat(getComputedStyle(track).gap) || 18; }
+            function getItemsPerView() {
+                const itemW = items[0].getBoundingClientRect().width;
+                const gap = getGap();
+                return Math.max(1, Math.floor(wrapper.clientWidth / (itemW + gap)));
+            }
+            function updateButtons(pages) {
+                btnPrev.disabled = currentPage <= 0;
+                btnNext.disabled = currentPage >= pages - 1;
+            }
+            function update() {
+                const perView = getItemsPerView();
+                const pages = Math.max(1, Math.ceil(items.length / perView));
+                if (currentPage > pages - 1) currentPage = pages - 1;
+                const gap = getGap();
+                const itemW = items[0].getBoundingClientRect().width;
+                const shift = currentPage * perView * (itemW + gap);
+                track.style.transform = `translateX(-${shift}px)`;
+                track.style.transition = 'transform .45s ease';
+                updateButtons(pages);
+            }
+            btnPrev.addEventListener('click', () => { currentPage = Math.max(0, currentPage - 1); update(); });
+            btnNext.addEventListener('click', () => { const perView = getItemsPerView(); const pages = Math.ceil(items.length / perView); currentPage = Math.min(pages - 1, currentPage + 1); update(); });
+            window.addEventListener('resize', () => { setTimeout(() => { update(); }, 80); });
+
+            // touch / swipe support
+            let startX = 0, deltaX = 0, baseShift = 0, touching = false;
+            wrapper.addEventListener('touchstart', (e) => {
+                touching = true;
+                startX = e.touches[0].clientX;
+                const perView = getItemsPerView();
+                const gap = getGap();
+                const itemW = items[0].getBoundingClientRect().width;
+                baseShift = currentPage * perView * (itemW + gap);
+                track.style.transition = 'none';
+            }, { passive: true });
+            wrapper.addEventListener('touchmove', (e) => {
+                if (!touching) return;
+                deltaX = e.touches[0].clientX - startX;
+                const pos = -baseShift + deltaX;
+                track.style.transform = `translateX(${pos}px)`;
+            }, { passive: true });
+            wrapper.addEventListener('touchend', () => {
+                touching = false;
+                track.style.transition = 'transform .45s ease';
+                if (Math.abs(deltaX) > 50) {
+                    if (deltaX < 0) { // swipe left -> next
+                        const perView = getItemsPerView(); const pages = Math.ceil(items.length / perView);
+                        currentPage = Math.min(pages - 1, currentPage + 1);
+                    } else { currentPage = Math.max(0, currentPage - 1); }
+                }
+                deltaX = 0;
+                update();
+            });
+
+            // init
+            window.addEventListener('load', () => { update(); });
         })();
     </script>
 </body>
