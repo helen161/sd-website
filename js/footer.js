@@ -15,7 +15,7 @@
     </div>
     <div class="footer-fb">
       <a href="https://www.facebook.com/sdlabssdcleaner/" target="_blank" rel="noopener" aria-label="SD LABS Facebook">
-        <img src="images/fb-icon.svg" alt="Facebook" width="44" height="44">
+        <img src="images/fb-icon.svg" alt="Facebook" width="60" height="60">
       </a>
     </div>
   </div>
