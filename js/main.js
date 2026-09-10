@@ -82,15 +82,100 @@ function initUI(){
   })();
 
   // 聯絡表單（範例：在 client 端顯示成功訊息）
-  var form = document.getElementById('contact-form');
-  if(form){
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var status = document.getElementById('form-status');
-      status.textContent = '已送出，感謝您的聯絡，我們會儘快回覆。';
+  //var form = document.getElementById('contact-form');
+  //if(form){
+    //form.addEventListener('submit', function(e){
+      //e.preventDefault();
+      //var status = document.getElementById('form-status');
+      //status.textContent = '已送出，感謝您的聯絡，我們會儘快回覆。';
       form.reset();
-    });
-  }
+    //});
+    //}
+
+    // 聯絡表單：使用 Formspree，送出後不離開目前頁面
+    var form = document.getElementById('contact-form');
+
+    if (form) {
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            var status = document.getElementById('form-status');
+            var submitBtn = form.querySelector('button[type="submit"]');
+
+            // 送出前狀態
+            if (status) {
+                status.textContent = '資料送出中，請稍候…';
+                status.className = 'form-status sending';
+            }
+
+            // 暫時停用送出按鈕，避免重複送出
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = '送出中…';
+            }
+
+            try {
+                var response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+
+                    // 送出成功
+                    if (status) {
+                        status.textContent = '✓ 感謝您的聯絡，我們會儘快回覆您。';
+                        status.className = 'form-status success';
+                    }
+
+                    // 清空表單
+                    form.reset();
+
+                } else {
+
+                    // Formspree 回傳錯誤
+                    var data = await response.json().catch(function () {
+                        return {};
+                    });
+
+                    var message = '送出失敗，請稍後再試。';
+
+                    if (data && data.errors && data.errors.length > 0) {
+                        message = data.errors
+                            .map(function (error) {
+                                return error.message;
+                            })
+                            .join(' ');
+                    }
+
+                    if (status) {
+                        status.textContent = '✕ ' + message;
+                        status.className = 'form-status error';
+                    }
+                }
+
+            } catch (error) {
+
+                // 網路錯誤
+                if (status) {
+                    status.textContent = '✕ 網路連線發生問題，請稍後再試。';
+                    status.className = 'form-status error';
+                }
+
+            } finally {
+
+                // 恢復送出按鈕
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '送出';
+                }
+            }
+        });
+    }
+
 
   // 行動 / 觸控裝置：為每個有子選單的項目加入顯示按鈕（手風琴式）
   (function(){
