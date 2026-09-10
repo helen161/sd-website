@@ -17,27 +17,38 @@
 
         <h1>聯絡我們</h1>
         <p>若有任何產品、採購或技術問題，請填寫下方表單，我們會盡快回覆。</p>
-
-        <form id="contact-form" class="contact-form" action="#" method="post">
-            <label>聯絡人姓名 <input type="text" name="name" required></label>
-            <label>公司名稱 <input type="text" name="company"></label>
-            <label>電話 <input type="tel" name="phone"></label>
-            <label>E-mail <input type="email" name="email" required></label>
-            <label>內容說明 <textarea name="message" rows="6" required></textarea></label>
-            <div class="form-actions">
-                <button type="submit" class="btn primary">送出</button>
-                <button type="reset" class="btn">重設</button>
-            </div>
-            <div id="form-status" class="form-status" aria-live="polite"></div>
+        <form id="contact-form" class="contact-form" action="https://formspree.io/f/xqpkwnpo" method="POST"> 
+        <label> 聯絡人姓名 <input type="text" name="name" required> </label> 
+        <label> 公司名稱 <input type="text" name="company"> </label> 
+        <label> 電話 <input type="tel" name="phone"> </label> 
+        <label> E-mail <input type="email" name="email" required> </label> 
+        <label> 內容說明 <textarea name="message" rows="6" required></textarea> 
+            </label>
+        <div class="form-actions"> 
+            <button type="submit" class="btn primary">送出</button>
+            <button type="reset" class="btn">重設</button> </div> <div id="form-status" class="form-status" aria-live="polite"> </div> 
         </form>
+
+        <!--<form id="contact-form" class="contact-form" action="#" method="post">
+        <label>聯絡人姓名 <input type="text" name="name" required></label>
+        <label>公司名稱 <input type="text" name="company"></label>
+        <label>電話 <input type="tel" name="phone"></label>
+        <label>E-mail <input type="email" name="email" required></label>
+        <label>內容說明 <textarea name="message" rows="6" required></textarea></label>
+        <div class="form-actions">
+            <button type="submit" class="btn primary">送出</button>
+            <button type="reset" class="btn">重設</button>
+        </div>
+        <div id="form-status" class="form-status" aria-live="polite"></div>
+    </form>-->
 
 
     </main>
 
-    <div id="site-footer-placeholder"></div>
+        <div id="site-footer-placeholder"></div>
 
-    <script src="js/title.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/main.js"></script>
-</body>
-</html>
+        <script src="js/title.js"></script>
+        <script src="js/footer.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+    </html>
