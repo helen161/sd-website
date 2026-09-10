@@ -1,54 +1,57 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>聯絡我們 - SD LABS</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div id="site-header-placeholder"></div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>聯絡我們 - SD LABS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head >
+            <body>
+                <div id="site-header-placeholder"></div>
 
-    <main class="container">
-        <!-- 置中 1300x325 橫幅（同 product.html 格式） -->
-        <section class="product-banner-center">
-            <img src="images/contactus.jpg" alt="愛思帝長效清潔劑 橫幅" width="1300" height="325">
-        </section>
+                <main class="container">
+                    <!-- 置中 1300x325 橫幅（同 product.html 格式） -->
+                    <section class="product-banner-center">
+                        <img src="images/contactus.jpg" alt="愛思帝長效清潔劑 橫幅" width="1300" height="325">
+                    </section>
 
-        <h1>聯絡我們</h1>
-        <p>若有任何產品、採購或技術問題，請填寫下方表單，我們會盡快回覆。</p>
-        <form id="contact-form" class="contact-form" action="https://formspree.io/f/xqpkwnpo" method="POST"> 
-        <label> 聯絡人姓名 <input type="text" name="name" required> </label> 
-        <label> 公司名稱 <input type="text" name="company"> </label> 
-        <label> 電話 <input type="tel" name="phone"> </label> 
-        <label> E-mail <input type="email" name="email" required> </label> 
-        <label> 內容說明 <textarea name="message" rows="6" required></textarea> 
-            </label>
-        <div class="form-actions"> 
-            <button type="submit" class="btn primary">送出</button>
-            <button type="reset" class="btn">重設</button> </div> <div id="form-status" class="form-status" aria-live="polite"> </div> 
-        </form>
+                    <h1>聯絡我們</h1>
+                    <p>若有任何產品、採購或技術問題，請填寫下方表單，我們會盡快回覆。</p>
+                    <form id="contact-form" class="contact-form" action="https://formspree.io/f/xqpkwnpo" method="POST">
+                        <input type="hidden" name="_subject" value="網站聯絡表單｜客戶詢問">
+                        <label> <span><span style="color: red;">*</span> 聯絡人姓名</span> <input type="text" name="name" required> </label>
+                        <label> <span><span style="color: red;">*</span> 公司名稱</span> <input type="text" name="company" required> </label>
+                        <label> <span><span style="color: red;">*</span> 電話</span> <input type="tel" name="phone" required> </label>
+                        <label> <span><span style="color: red;">*</span> E-mail</span> <input type="email" name="email" required> </label>
+                        <label> 
+                            <span><span style="color: red;">*</span> 內容說明</span> <textarea name="message" rows="6" required></textarea>
+                        </label>
+                        <div class="form-actions">
+                            <button type="submit" class="btn primary">送出</button>
+                            <button type="reset" class="btn">重設</button>
+                        </div> <div id="form-status" class="form-status" aria-live="polite"> </div>
+                    </form>
 
-        <!--<form id="contact-form" class="contact-form" action="#" method="post">
-        <label>聯絡人姓名 <input type="text" name="name" required></label>
-        <label>公司名稱 <input type="text" name="company"></label>
-        <label>電話 <input type="tel" name="phone"></label>
-        <label>E-mail <input type="email" name="email" required></label>
-        <label>內容說明 <textarea name="message" rows="6" required></textarea></label>
-        <div class="form-actions">
-            <button type="submit" class="btn primary">送出</button>
-            <button type="reset" class="btn">重設</button>
-        </div>
-        <div id="form-status" class="form-status" aria-live="polite"></div>
-    </form>-->
+                    <!--<form id="contact-form" class="contact-form" action="#" method="post">
+                        <label>聯絡人姓名 <input type="text" name="name" required></label>
+                        <label>公司名稱 <input type="text" name="company"></label>
+                        <label>電話 <input type="tel" name="phone"></label>
+                        <label>E-mail <input type="email" name="email" required></label>
+                        <label>內容說明 <textarea name="message" rows="6" required></textarea></label>
+                        <div class="form-actions">
+                            <button type="submit" class="btn primary">送出</button>
+                            <button type="reset" class="btn">重設</button>
+                        </div>
+                        <div id="form-status" class="form-status" aria-live="polite"></div>
+                    </form>-->
 
 
-    </main>
+                </main>
 
-        <div id="site-footer-placeholder"></div>
+                <div id="site-footer-placeholder"></div>
 
-        <script src="js/title.js"></script>
-        <script src="js/footer.js"></script>
-        <script src="js/main.js"></script>
+                <script src="js/title.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/main.js"></script>
     </body>
-    </html>
+</html>

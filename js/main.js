@@ -1,255 +1,513 @@
-// header 插入由 js/title.js 負責 (render header HTML into #site-header-placeholder)
+// header 插入由 js/title.js 負責
 // title.js 會在 DOMContentLoaded 時插入 header 並 dispatch 'headerLoaded'
-// initUI 會在收到 headerLoaded 或 DOMContentLoaded 時執行
 
-// 初始化所有互動元件（可安全呼叫多次，但只會執行一次）
-function initUI(){
-  if(window.__sd_init_done) return; // already initialized
+// ==================================================
+// 聯絡表單：Formspree
+// ==================================================
+function initContactForm() {
+  var form = document.getElementById('contact-form');
+
+  // 找不到表單就直接結束
+  if (!form) {
+    return;
+  }
+
+  // 避免重複綁定
+  if (form.dataset.formInitialized === 'true') {
+    return;
+  }
+
+  form.dataset.formInitialized = 'true';
+
+  form.addEventListener('submit', async function(e) {
+    // 阻止瀏覽器跳轉到 Formspree
+    e.preventDefault();
+
+    var status = document.getElementById('form-status');
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    // 顯示送出中
+    if (status) {
+      status.textContent = '資料送出中，請稍候…';
+      status.className = 'form-status sending';
+    }
+
+    // 暫時停用送出按鈕
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送出中…';
+    }
+
+    try {
+      var response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+
+        // 送出成功
+        if (status) {
+          status.textContent = '✓ 感謝您的聯絡，我們會儘快回覆您。';
+          status.className = 'form-status success';
+        }
+
+        // 清空表單
+        form.reset();
+
+      } else {
+
+        // Formspree 回傳錯誤
+        var data = await response.json().catch(function() {
+          return {};
+        });
+
+        var message = '送出失敗，請稍後再試。';
+
+        if (data && data.errors && data.errors.length > 0) {
+          message = data.errors
+            .map(function(error) {
+              return error.message;
+            })
+            .join(' ');
+        }
+
+        if (status) {
+          status.textContent = '✕ ' + message;
+          status.className = 'form-status error';
+        }
+      }
+
+    } catch (error) {
+
+      console.error('表單送出錯誤：', error);
+
+      if (status) {
+        status.textContent = '✕ 網路連線發生問題，請稍後再試。';
+        status.className = 'form-status error';
+      }
+
+    } finally {
+
+      // 恢復送出按鈕
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '送出';
+      }
+    }
+  });
+}
+
+
+// ==================================================
+// 初始化所有互動元件
+// ==================================================
+function initUI() {
+
+  // 避免重複初始化
+  if (window.__sd_init_done) {
+    return;
+  }
+
   window.__sd_init_done = true;
 
+
+  // ==================================================
   // 手機選單切換
+  // ==================================================
   var toggle = document.getElementById('mobile-toggle');
   var nav = document.getElementById('main-nav');
-  if(toggle && nav){
-    toggle.addEventListener('click', function(){
+
+  if (toggle && nav) {
+    toggle.addEventListener('click', function() {
       nav.classList.toggle('open');
     });
   }
 
-  // Hero 輪播：支援自動與手動切換、點點與滑動
-  (function(){
+
+  // ==================================================
+  // Hero 輪播
+  // ==================================================
+  (function() {
+
     var slider = document.getElementById('hero-slider');
-    if(!slider) return;
+
+    if (!slider) {
+      return;
+    }
+
     var slides = slider.querySelectorAll('.slide');
     var dotsContainer = document.getElementById('slider-dots');
     var prevBtn = slider.querySelector('.slider-prev');
     var nextBtn = slider.querySelector('.slider-next');
+
     var idx = 0;
     var timer = null;
     var autoDelay = 4000;
 
-    function show(i){
-      slides.forEach(function(s, n){
+
+    function show(i) {
+
+      slides.forEach(function(s, n) {
         s.classList.toggle('active', n === i);
       });
-      // 更新點點
-      if(dotsContainer){
+
+      if (dotsContainer) {
+
         var dots = dotsContainer.querySelectorAll('.dot');
-        dots.forEach(function(d, n){ d.classList.toggle('active', n === i); });
+
+        dots.forEach(function(d, n) {
+          d.classList.toggle('active', n === i);
+        });
       }
+
       idx = i;
     }
 
-    function next(){ show((idx + 1) % slides.length); }
-    function prev(){ show((idx - 1 + slides.length) % slides.length); }
+
+    function next() {
+      show((idx + 1) % slides.length);
+    }
+
+
+    function prev() {
+      show((idx - 1 + slides.length) % slides.length);
+    }
+
 
     // 建立點點導航
-    if(dotsContainer){
-      slides.forEach(function(_, n){
+    if (dotsContainer) {
+
+      slides.forEach(function(_, n) {
+
         var d = document.createElement('button');
-        d.className = 'dot' + (n===0? ' active':'');
-        d.setAttribute('aria-label', '切換到第 ' + (n+1) + ' 張');
-        d.addEventListener('click', function(){ show(n); pauseAuto(); });
+
+        d.className = 'dot' + (n === 0 ? ' active' : '');
+
+        d.setAttribute(
+          'aria-label',
+          '切換到第 ' + (n + 1) + ' 張'
+        );
+
+        d.addEventListener('click', function() {
+          show(n);
+          pauseAuto();
+        });
+
         dotsContainer.appendChild(d);
       });
     }
 
-    if(prevBtn) prevBtn.addEventListener('click', function(e){ e.preventDefault(); prev(); pauseAuto(); });
-    if(nextBtn) nextBtn.addEventListener('click', function(e){ e.preventDefault(); next(); pauseAuto(); });
 
-    // 自動播放
-    function startAuto(){ if(timer) clearInterval(timer); timer = setInterval(next, autoDelay); }
-    function pauseAuto(){ if(timer) clearInterval(timer); timer = null; }
-
-    // 偵測滑鼠進入暫停自動播放
-    slider.addEventListener('mouseenter', pauseAuto);
-    slider.addEventListener('mouseleave', function(){ startAuto(); });
-
-    // 支援左右鍵
-    document.addEventListener('keydown', function(e){ if(e.key === 'ArrowLeft') prev(); if(e.key === 'ArrowRight') next(); });
-
-    // 支援觸控滑動
-    var touchStartX = 0;
-    slider.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].clientX; }, {passive:true});
-    slider.addEventListener('touchend', function(e){
-      var dx = e.changedTouches[0].clientX - touchStartX;
-      if(Math.abs(dx) > 40){ if(dx < 0) next(); else prev(); pauseAuto(); }
-    });
-
-    // 初始化
-    show(0);
-    startAuto();
-  })();
-
-  // 聯絡表單（範例：在 client 端顯示成功訊息）
-  //var form = document.getElementById('contact-form');
-  //if(form){
-    //form.addEventListener('submit', function(e){
-      //e.preventDefault();
-      //var status = document.getElementById('form-status');
-      //status.textContent = '已送出，感謝您的聯絡，我們會儘快回覆。';
-      form.reset();
-    //});
-    //}
-
-    // 聯絡表單：使用 Formspree，送出後不離開目前頁面
-    var form = document.getElementById('contact-form');
-
-    if (form) {
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            var status = document.getElementById('form-status');
-            var submitBtn = form.querySelector('button[type="submit"]');
-
-            // 送出前狀態
-            if (status) {
-                status.textContent = '資料送出中，請稍候…';
-                status.className = 'form-status sending';
-            }
-
-            // 暫時停用送出按鈕，避免重複送出
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.textContent = '送出中…';
-            }
-
-            try {
-                var response = await fetch(form.action, {
-                    method: 'POST',
-                    body: new FormData(form),
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-
-                    // 送出成功
-                    if (status) {
-                        status.textContent = '✓ 感謝您的聯絡，我們會儘快回覆您。';
-                        status.className = 'form-status success';
-                    }
-
-                    // 清空表單
-                    form.reset();
-
-                } else {
-
-                    // Formspree 回傳錯誤
-                    var data = await response.json().catch(function () {
-                        return {};
-                    });
-
-                    var message = '送出失敗，請稍後再試。';
-
-                    if (data && data.errors && data.errors.length > 0) {
-                        message = data.errors
-                            .map(function (error) {
-                                return error.message;
-                            })
-                            .join(' ');
-                    }
-
-                    if (status) {
-                        status.textContent = '✕ ' + message;
-                        status.className = 'form-status error';
-                    }
-                }
-
-            } catch (error) {
-
-                // 網路錯誤
-                if (status) {
-                    status.textContent = '✕ 網路連線發生問題，請稍後再試。';
-                    status.className = 'form-status error';
-                }
-
-            } finally {
-
-                // 恢復送出按鈕
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = '送出';
-                }
-            }
-        });
-    }
-
-
-  // 行動 / 觸控裝置：為每個有子選單的項目加入顯示按鈕（手風琴式）
-  (function(){
-    // 不再根據裝置區分，主選單皆以點擊開合下拉
-    var isTouchDevice = function(){ return true; };
-
-    function ensureSubmenuToggles(){
-      var parents = document.querySelectorAll('.has-dropdown');
-      parents.forEach(function(p){
-        if(p.querySelector('.submenu-toggle')) return; // 已建立
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'submenu-toggle';
-        btn.setAttribute('aria-expanded', 'false');
-        btn.addEventListener('click', function(e){
-          e.stopPropagation();
-          p.classList.toggle('open');
-          var expanded = p.classList.contains('open');
-          btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-          // close others
-          if(expanded){
-            document.querySelectorAll('.has-dropdown.open').forEach(function(other){ if(other!==p) other.classList.remove('open'); });
-          }
-        });
-        // append after the anchor
-        var a = p.querySelector('a');
-        if(a && a.parentNode){
-          a.parentNode.insertBefore(btn, a.nextSibling);
-        }
+    // 左右按鈕
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        prev();
+        pauseAuto();
       });
     }
 
-    // intercept anchor clicks on touch devices: first click opens submenu, second click follows link
-    // 改為所有裝置皆以點擊切換下拉（第一次點擊開啟，第二次若為有效連結則導向）
-    // 父項點擊行為：第一次點擊開啟，第二次點擊收回（不直接導向），子選單內的連結仍能導向
-    document.addEventListener('click', function(e){
-      var a = e.target.closest('.has-dropdown > a');
-      if(!a) return;
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        next();
+        pauseAuto();
+      });
+    }
+
+
+    // 自動播放
+    function startAuto() {
+
+      if (timer) {
+        clearInterval(timer);
+      }
+
+      timer = setInterval(next, autoDelay);
+    }
+
+
+    function pauseAuto() {
+
+      if (timer) {
+        clearInterval(timer);
+      }
+
+      timer = null;
+    }
+
+
+    // 滑鼠進入暫停
+    slider.addEventListener('mouseenter', pauseAuto);
+
+    slider.addEventListener('mouseleave', function() {
+      startAuto();
+    });
+
+
+    // 鍵盤左右鍵
+    document.addEventListener('keydown', function(e) {
+
+      if (e.key === 'ArrowLeft') {
+        prev();
+      }
+
+      if (e.key === 'ArrowRight') {
+        next();
+      }
+    });
+
+
+    // 觸控滑動
+    var touchStartX = 0;
+
+    slider.addEventListener(
+      'touchstart',
+      function(e) {
+        touchStartX = e.changedTouches[0].clientX;
+      },
+      { passive: true }
+    );
+
+
+    slider.addEventListener(
+      'touchend',
+      function(e) {
+
+        var dx =
+          e.changedTouches[0].clientX - touchStartX;
+
+        if (Math.abs(dx) > 40) {
+
+          if (dx < 0) {
+            next();
+          } else {
+            prev();
+          }
+
+          pauseAuto();
+        }
+      }
+    );
+
+
+    // 初始化輪播
+    show(0);
+    startAuto();
+
+  })();
+
+
+  // ==================================================
+  // 主選單下拉
+  // ==================================================
+  (function() {
+
+    function ensureSubmenuToggles() {
+
+      var parents =
+        document.querySelectorAll('.has-dropdown');
+
+      parents.forEach(function(p) {
+
+        if (p.querySelector('.submenu-toggle')) {
+          return;
+        }
+
+        var btn =
+          document.createElement('button');
+
+        btn.type = 'button';
+
+        btn.className = 'submenu-toggle';
+
+        btn.setAttribute(
+          'aria-expanded',
+          'false'
+        );
+
+
+        btn.addEventListener('click', function(e) {
+
+          e.stopPropagation();
+
+          p.classList.toggle('open');
+
+          var expanded =
+            p.classList.contains('open');
+
+          btn.setAttribute(
+            'aria-expanded',
+            expanded ? 'true' : 'false'
+          );
+
+
+          // 關閉其他下拉選單
+          if (expanded) {
+
+            document
+              .querySelectorAll('.has-dropdown.open')
+              .forEach(function(other) {
+
+                if (other !== p) {
+                  other.classList.remove('open');
+                }
+
+              });
+          }
+
+        });
+
+
+        // 插入按鈕
+        var a = p.querySelector('a');
+
+        if (a && a.parentNode) {
+
+          a.parentNode.insertBefore(
+            btn,
+            a.nextSibling
+          );
+        }
+
+      });
+    }
+
+
+    // 父選單點擊
+    document.addEventListener('click', function(e) {
+
+      var a =
+        e.target.closest('.has-dropdown > a');
+
+      if (!a) {
+        return;
+      }
 
       var parent = a.parentElement;
-      // 永遠 preventDefault，讓父項成為開關（避免父連結直接導向）
+
+      // 父項只負責開關下拉
       e.preventDefault();
-      var btn = parent.querySelector('.submenu-toggle');
-      if(!parent.classList.contains('open')){
+
+      var btn =
+        parent.querySelector('.submenu-toggle');
+
+
+      if (!parent.classList.contains('open')) {
+
         parent.classList.add('open');
-        if(btn) btn.setAttribute('aria-expanded','true');
-        // 關閉其他已開啟的下拉
-        document.querySelectorAll('.has-dropdown.open').forEach(function(other){ if(other!==parent) other.classList.remove('open'); });
+
+        if (btn) {
+          btn.setAttribute(
+            'aria-expanded',
+            'true'
+          );
+        }
+
+
+        // 關閉其他下拉
+        document
+          .querySelectorAll('.has-dropdown.open')
+          .forEach(function(other) {
+
+            if (other !== parent) {
+              other.classList.remove('open');
+            }
+
+          });
+
       } else {
+
         parent.classList.remove('open');
-        if(btn) btn.setAttribute('aria-expanded','false');
+
+        if (btn) {
+          btn.setAttribute(
+            'aria-expanded',
+            'false'
+          );
+        }
       }
+
     });
 
-    // close submenus when clicking outside
-    document.addEventListener('click', function(e){
-      if(!e.target.closest('.main-nav')){
-        document.querySelectorAll('.has-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
+
+    // 點擊外部關閉
+    document.addEventListener('click', function(e) {
+
+      if (!e.target.closest('.main-nav')) {
+
+        document
+          .querySelectorAll('.has-dropdown.open')
+          .forEach(function(d) {
+            d.classList.remove('open');
+          });
+
       }
+
     });
 
-    // initialize toggles and on resize
+
+    // 初始化
     ensureSubmenuToggles();
-    window.addEventListener('resize', function(){ ensureSubmenuToggles(); });
+
+
+    // 視窗尺寸改變
+    window.addEventListener(
+      'resize',
+      function() {
+        ensureSubmenuToggles();
+      }
+    );
+
   })();
+
 }
 
-// 初始化時機：若 DOMContentLoaded 尚未發生，等候其發生；若 header 是動態載入，等待 headerLoaded
-if(document.readyState === 'loading'){
-  document.addEventListener('DOMContentLoaded', initUI);
-} else {
+
+// ==================================================
+// 頁面載入時初始化
+// ==================================================
+function initializePage() {
+
   initUI();
+
+  initContactForm();
+
 }
-window.addEventListener('headerLoaded', function(){
-  // headerLoaded 可能在 DOMContentLoaded 之後或之前發生，確保初始化已呼叫
-  initUI();
-});
+
+
+// DOM 載入
+if (document.readyState === 'loading') {
+
+  document.addEventListener(
+    'DOMContentLoaded',
+    initializePage
+  );
+
+} else {
+
+  initializePage();
+
+}
+
+
+// ==================================================
+// header 動態載入完成
+// ==================================================
+window.addEventListener(
+  'headerLoaded',
+  function() {
+
+    // initUI 本身會避免重複初始化
+    initUI();
+
+    // 聯絡表單也再次確認
+    initContactForm();
+
+  }
+);
